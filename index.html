@@ -22,169 +22,199 @@
                     <h2 class="sidebar__filters-title">
                         Period
                     </h2>
-                    <select name="" id="" class="sidebar__filtres-select">
-                        <option value="0" class="sidebar__filters-option">January</option>
-                        <option value="1" class="sidebar__filters-option">February</option>
-                        <option value="2" class="sidebar__filters-option">March</option>
-                        <option value="3" class="sidebar__filters-option">April</option>
-                        <option value="4" class="sidebar__filters-option">May</option>
-                        <option value="5" class="sidebar__filters-option">June</option>
-                        <option value="6" class="sidebar__filters-option">July</option>
-                        <option value="7" class="sidebar__filters-option">August</option>
-                        <option value="8" class="sidebar__filters-option">September</option>
-                        <option value="9" class="sidebar__filters-option">October</option>
-                        <option value="10" class="sidebar__filters-option">November</option>
-                        <option value="11" class="sidebar__filters-option">December</option>
+                    <select name="" id="" class="sidebar__filtres-select sidebar__select-months">
+                        <option value="0" class="sidebar__filters-month">January</option>
+                        <option value="1" class="sidebar__filters-month">February</option>
+                        <option value="2" class="sidebar__filters-month">March</option>
+                        <option value="3" class="sidebar__filters-month">April</option>
+                        <option value="4" class="sidebar__filters-month">May</option>
+                        <option value="5" class="sidebar__filters-month">June</option>
+                        <option value="6" class="sidebar__filters-month">July</option>
+                        <option value="7" class="sidebar__filters-month">August</option>
+                        <option value="8" class="sidebar__filters-month">September</option>
+                        <option value="9" class="sidebar__filters-month">October</option>
+                        <option value="10" class="sidebar__filters-month">November</option>
+                        <option value="11" class="sidebar__filters-month">December</option>
                     </select>
-                    <select name="" id="" class="sidebar__filtres-select">
-                        <option value="2025" class="sidebar__filters-option">2025</option>
-                        <option value="2026" class="sidebar__filters-option">2026</option>
-                        <option value="2027" class="sidebar__filters-option">2027</option>
+                    <select name="" id="" class="sidebar__filtres-select sidebar__select-years">
+                        <option value="2025" class="sidebar__filters-year">2025</option>
+                        <option value="2026" class="sidebar__filters-year">2026</option>
+                        <option value="2027" class="sidebar__filters-year">2027</option>
                     </select>
                 </div>
                 <nav class="sidebar__nav nav">
-                    <a href="#project" class="nav__link nav__link--active">Project</a>
-                    <a href="#employees" class="nav__link">Employees</a>
+                    <a href="#project" class="nav__link nav__link--project nav__link--active">Project</a>
+                    <a href="#employees" class="nav__link nav__link--employees">Employees</a>
                 </nav>
             </div>
         </aside>
         <button class="sidebar__open hidden">→</button>
         <main class="main">
-            <div class="container">
-                <section class="project">
-                    <header class="project__header">
-                        <h2 class="project__header-title">
-                            Projects
-                        </h2>
-                        <div class="projects__btns">
-                            <button class="projects__btn--add">
-                                Add
-                            </button>
-                            <button class="projects__btn--seed">
-                                Seed data
-                            </button>
-                        </div>
-                    </header>
-                    <div class="project__content">
-                        <table class="project__table">
-                            <thead class="project__table-head">
-                                <tr>
-                                    <th class="project__table-title">
-                                        Company
-                                        <span class="project__table-sort"></span>
-                                        <span class="project__table-search"></span>
-                                    </th>
-                                    <th class="project__table-title">
-                                        Project
-                                        <span class="project__table-sort"></span>
-                                        <span class="project__table-search"></span>
-                                    </th>
-                                    <th class="project__table-title">
-                                        Budget
-                                        <span class="project__table-sort"></span>
-                                    </th>
-                                    <th class="project__table-title">
-                                        Employee Capacity
-                                        <span class="project__table-sort"></span>
-                                    </th>
-                                    <th class="project__table-title">
-                                        Employees
-                                    </th>
-                                    <th class="project__table-title">
-                                        Estimated Income
-                                        <span class="project__table-sort"></span>
-                                    </th>
-                                    <th class="project__table-title">
-                                        Actions
-                                    </th>
-                                </tr>
-                            <tbody class="project__table-body"></tbody>
-                            </thead>
-                        </table>
+            <section class="project">
+                <header class="project__header">
+                    <h2 class="project__header-title">
+                        Projects
+                    </h2>
+                    <div class="projects__btns">
+                        <button class="projects__btn projects__btn--add">
+                            Add project
+                        </button>
+                        <button class="projects__btn projects__btn--seed">
+                            Seed data
+                        </button>
                     </div>
-                    <div class="project__drawer drawer">
-                        <h3 class="drawer__title">
-                            Add new project
-                        </h3>
-                        <form action="" class="drawer__form">
-                            <div class="form__item">
-                                <label for="" class="form__label">
-                                    Project name
-                                </label>
-                                <input type="text" class="form__input">
-                                <span class="form__error"></span>
-                            </div>
-                            <div class="form__item">
-                                <label for="" class="form__label">
-                                    Company name
-                                </label>
-                                <input type="text" class="form__input">
-                                <span class="form__error"></span>
-                            </div>
-                            <div class="form__item">
-                                <label for="" class="form__label">
+                </header>
+                <div class="project__content">
+                    <table class="project__table">
+                        <thead class="project__table-head">
+                            <tr>
+                                <th class="project__table-title">
+                                    Company
+                                    <span class="project__table-sort">⇅</span>
+                                    <span class="project__table-search">⌕</span>
+                                </th>
+                                <th class="project__table-title">
+                                    Project
+                                    <span class="project__table-sort">⇅</span>
+                                    <span class="project__table-search">⌕</span>
+                                </th>
+                                <th class="project__table-title">
                                     Budget
-                                </label>
-                                <input type="text" class="form__input">
-                                <span class="form__error"></span>
-                            </div>
-                            <div class="form__item">
-                                <label for="" class="form__label">
-                                    Employee capacity
-                                </label>
-                                <input type="text" class="form__input">
-                                <span class="form__error"></span>
-                            </div>
-                            <div class="form__btns">
-                                <button class="form__submit">
-                                    Add
-                                </button>
-                                <button class="form__close">
-                                    Close
-                                </button>
-                            </div>
-                        </form>
+                                    <span class="project__table-sort">⇅</span>
+                                </th>
+                                <th class="project__table-title">
+                                    Employee Capacity
+                                    <span class="project__table-sort">⇅</span>
+                                </th>
+                                <th class="project__table-title">
+                                    Employees
+                                </th>
+                                <th class="project__table-title">
+                                    Estimated Income
+                                    <span class="project__table-sort">⇅</span>
+                                </th>
+                                <th class="project__table-title">
+                                    Actions
+                                </th>
+                            </tr>
+                        <tbody class="project__table-body">
+                            <td>SmartTech</td>
+                            <td>Cloud Portal</td>
+                            <td>500000</td>
+                            <td>2.0/4</td>
+                            <td><button>Show Emploees</button></td>
+                            <td>120000</td>
+                            <td><button>Delete</button></td>
+                        </tbody>
+                        </thead>
+                    </table>
+                    <p class="project__text">
+                        Total Estimated Income:
+                    </p>
+                </div>
+                <div class="project__drawer drawer">
+                    <h3 class="drawer__title">
+                        Add new project
+                    </h3>
+                    <form action="" class="drawer__form">
+                        <div class="form__item">
+                            <label for="" class="form__label">
+                                Project name
+                            </label>
+                            <input type="text" class="form__input">
+                            <span class="form__error"></span>
+                        </div>
+                        <div class="form__item">
+                            <label for="" class="form__label">
+                                Company name
+                            </label>
+                            <input type="text" class="form__input">
+                            <span class="form__error"></span>
+                        </div>
+                        <div class="form__item">
+                            <label for="" class="form__label">
+                                Budget
+                            </label>
+                            <input type="text" class="form__input">
+                            <span class="form__error"></span>
+                        </div>
+                        <div class="form__item">
+                            <label for="" class="form__label">
+                                Employee capacity
+                            </label>
+                            <input type="text" class="form__input">
+                            <span class="form__error"></span>
+                        </div>
+                    </form>
+                    <div class="form__btns">
+                        <button class="form__btn form__btn--submit">
+                            Add
+                        </button>
+                        <button class="form__btn form__btn--close">
+                            Close
+                        </button>
                     </div>
-                    <div class="project__modal modal">
-                        <div class="modal__container">
-                            <header class="modal__header">
-                                <h3 class="modal__title">
-                                    Select a month to copy its data to the current month
-                                </h3>
-                                <button class="modal__btn">×</button>
-                                <div class="modal__content">
-                                    <table class="modal__table">
-                                        <thead class="modal__table-thead">
-                                            <tr>
-                                                <th class="modal__table-title">
-                                                    Year
-                                                </th>
-                                                <th class="modal__table-title">
-                                                    Month
-                                                </th>
-                                                <th class="modal__table-title">
-                                                    Projects
-                                                </th>
-                                                <th class="modal__table-title">
-                                                    Employees
-                                                </th>
-                                                <th class="modal__table-title">
-                                                    Total Est. Income
-                                                </th>
-                                                <th class="modal__table-title">
-                                                    Action
-                                                </th>
-                                            </tr>
-                                        <tbody class="modal__title-body"></tbody>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </header>
+                </div>
+                <dialog class="project__modal modal">
+                    <div class="modal__container">
+                        <header class="modal__header">
+                            <h3 class="modal__title">
+                                Select a month to copy its data to the current month
+                            </h3>
+                            <button class="modal__btn">×</button>
+                        </header>
+                        <div class="modal__content">
+                            <table class="modal__table">
+                                <thead class="modal__table-thead">
+                                    <tr>
+                                        <th class="modal__table-title">
+                                            Year
+                                        </th>
+                                        <th class="modal__table-title">
+                                            Month
+                                        </th>
+                                        <th class="modal__table-title">
+                                            Projects
+                                        </th>
+                                        <th class="modal__table-title">
+                                            Employees
+                                        </th>
+                                        <th class="modal__table-title">
+                                            Total Est. Income
+                                        </th>
+                                        <th class="modal__table-title">
+                                            Action
+                                        </th>
+                                    </tr>
+                                <tbody class="modal__table-body">
+                                    <td class="modal__table-content modal__table--year">
+                                        2026
+                                    </td>
+                                    <td class="modal__table-content modal__table--month">
+                                        January
+                                    </td>
+                                    <td class="modal__table-content modal__table--projects">
+                                        5
+                                    </td>
+                                    <td class="modal__table-content modal__table--employees">
+                                        14
+                                    </td>
+                                    <td class="modal__table-content modal__table--total">
+                                        456777
+                                    </td>
+                                    <td class="modal__table-content modal__table--action">
+                                        <button class="modal__btn--seed">
+                                            Seed
+                                        </button>
+                                    </td>
+                                </tbody>
+                                </thead>
+                            </table>
                         </div>
                     </div>
-                </section>
-                <section class="employee"></section>
-            </div>
+                </dialog>
+            </section>
+            <section class="employee"></section>
         </main>
     </div>
 
