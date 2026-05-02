@@ -177,7 +177,13 @@ img {
     border-collapse: collapse;
 }
 
-th, td {
+.project__table th {
+    padding: 5px;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.project__table > td {
     padding: 5px;
     border: 1px solid grey;
     text-align: center;
