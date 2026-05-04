@@ -1,7 +1,4 @@
 const appState = {
-  // Глобальный период управления
-  //   currentPeriod: "2025-0",
-
   monthlyData: {
     // ЯНВАРЬ 2026
     "2026-0": {
@@ -11,18 +8,14 @@ const appState = {
           company: "SmartTech",
           name: "Cloud Portal",
           budget: 500000.0,
-          totalCapacity: 2.0, // "Всего" в поле производительности
-          expectedRevenue: 120000.5,
-          assignedEmployeeIds: ["e1", "e2"],
+          employeeCapacity: 2,
         },
         {
           id: "p2",
           company: "BioGen",
           name: "Research App",
           budget: 350000.75,
-          totalCapacity: 1.5,
-          expectedRevenue: -15000.0, // Будет красным
-          assignedEmployeeIds: ["e3"],
+          employeeCapacity: 1.5,
         },
       ],
       employees: [
@@ -30,49 +23,28 @@ const appState = {
           id: "e1",
           firstName: "Александр",
           lastName: "Иванов",
-          birthDate: "1992-05-15", // Возраст вычисляется динамически
-          role: "Senior", // "Старший"
+          birthDate: "1992-05-15",
+          role: "Senior",
           salary: 4500,
-          estimatedPayment: 4800.5,
-          maxCapacity: 1.5, // Максимальный ресурс
-          currentUsage: 1.2, // Использованный ресурс
-          projectTasksCount: 2,
-          projectedIncome: 1500.0,
-          vacationDays: 0, // Сохраняется в снимке месяца
-          fitness: 1.0,
-          power: 1.0,
+          assignments: [{ projectId: "p1", capacity: 1, fit: 0.95 }],
         },
         {
           id: "e2",
           firstName: "Мария",
           lastName: "Петрова",
           birthDate: "1995-10-20",
-          role: "Middle", // "Средний"
+          role: "Middle",
           salary: 3200,
-          estimatedPayment: 3100.0,
-          maxCapacity: 1.0,
-          currentUsage: 1.0,
-          projectTasksCount: 1,
-          projectedIncome: 800.0,
-          vacationDays: 5, // В январе был отпуск
-          fitness: 0.9,
-          power: 1.0,
+          assignments: [{ projectId: "p2", capacity: 0.5, fit: 0.9 }],
         },
         {
           id: "e3",
           firstName: "Олег",
           lastName: "Сидоров",
           birthDate: "1988-02-10",
-          role: "Architect", // "Архитектор"
+          role: "Architect",
           salary: 7000,
-          estimatedPayment: 7500.0,
-          maxCapacity: 1.0,
-          currentUsage: 0.5,
-          projectTasksCount: 3,
-          projectedIncome: 2500.0,
-          vacationDays: 0,
-          fitness: 1.0,
-          power: 1.0,
+          assignments: [{ projectId: "p2", capacity: 1, fit: 0.85 }],
         },
       ],
     },
@@ -84,19 +56,15 @@ const appState = {
           id: "p1",
           company: "SmartTech",
           name: "Cloud Portal",
-          budget: 550000.0, // Бюджет вырос в новом месяце
-          totalCapacity: 2.0,
-          expectedRevenue: 140000.0,
-          assignedEmployeeIds: ["e1"], // Состав команды изменился
+          budget: 550000.0,
+          employeeCapacity: 2,
         },
         {
           id: "p3", // Новый проект
           company: "EcoWorld",
           name: "Solar Tracker",
           budget: 200000.0,
-          totalCapacity: 1.0,
-          expectedRevenue: 45000.0,
-          assignedEmployeeIds: ["e4"],
+          employeeCapacity: 1,
         },
       ],
       employees: [
@@ -107,53 +75,32 @@ const appState = {
           birthDate: "1992-05-15",
           role: "Lead", // Повысили до "Ведущего" в феврале
           salary: 5000,
-          estimatedPayment: 5200.0,
-          maxCapacity: 1.5,
-          currentUsage: 1.5, // Вместимость заполнена, кнопка "Назначить" будет недоступна
-          projectTasksCount: 4,
-          projectedIncome: 2000.0,
-          vacationDays: 2,
-          fitness: 1.0,
-          power: 1.1,
+          assignments: [{ projectId: "p1", capacity: 1, fit: 0.95 }],
         },
         {
-          id: "e4", // Новый сотрудник в феврале
+          id: "e4",
           firstName: "Елена",
           lastName: "Кузнецова",
           birthDate: "1998-11-30",
           role: "Junior",
           salary: 1800,
-          estimatedPayment: 1800.0,
-          maxCapacity: 1.0,
-          currentUsage: 0.8,
-          projectTasksCount: 1,
-          projectedIncome: 300.0,
-          vacationDays: 0,
-          fitness: 1.0,
-          power: 0.8,
+          assignments: [{ projectId: "p3", capacity: 1, fit: 0.9 }],
         },
         {
           id: "e3",
           firstName: "Олег",
           lastName: "Сидоров",
           birthDate: "1988-02-10",
-          role: "Architect",
-          salary: 7200, // Индексация зарплаты
-          estimatedPayment: 7200.0,
-          maxCapacity: 1.0,
-          currentUsage: 0.0,
-          projectTasksCount: 0,
-          projectedIncome: 0,
-          vacationDays: 20, // Почти весь месяц в отпуске
-          fitness: 1.0,
-          power: 1.0,
+          role: "Junior",
+          salary: 1800,
+          assignments: [{ projectId: "p2", capacity: 0.5, fit: 0.9 }],
         },
       ],
     },
   },
 };
 
-// STOTAGE
+// STORAGE
 
 const getRealTimePeriod = () => {
   const now = new Date();
@@ -172,6 +119,21 @@ const Storage = {
       this.state.monthlyData[period] = { projects: [], employees: [] };
     }
     return this.state.monthlyData[period];
+  },
+
+  deleteEmployee(employeeId, period) {
+    const data = this.getPeriodData(period);
+    data.employees = data.employees.filter((emp) => emp.id !== employeeId);
+    this.save();
+  },
+
+  updateEmployee(employeeId, period, field, value) {
+    const data = this.getPeriodData(period);
+    const employee = data.employees.find((emp) => emp.id === employeeId);
+    if (employee) {
+      employee[field] = field === "salary" ? parseFloat(value) : value;
+      this.save();
+    }
   },
 };
 
@@ -220,6 +182,7 @@ navLinkProject.addEventListener("click", () => {
   navLinkEmployees.classList.remove("nav__link--active");
   sectionProject.classList.remove("hidden");
   sectionEmployees.classList.add("hidden");
+  renderProjectTable();
 });
 
 navLinkEmployees.addEventListener("click", () => {
@@ -227,6 +190,7 @@ navLinkEmployees.addEventListener("click", () => {
   navLinkProject.classList.remove("nav__link--active");
   sectionEmployees.classList.remove("hidden");
   sectionProject.classList.add("hidden");
+  renderEmployeesTable();
 });
 
 // MODAL
@@ -253,6 +217,7 @@ function closeOverlay({ currentTarget, target }) {
 
 // PROJECT
 
+// let currentPeriod = Storage.state.currentPeriod || "2025-0";
 let currentPeriod = getRealTimePeriod();
 const selectMonth = document.querySelector(".sidebar__select-months");
 const selectYear = document.querySelector(".sidebar__select-years");
@@ -272,6 +237,7 @@ function initPeriod() {
 
       Storage.save();
       renderProjectTable();
+      renderEmployeesTable()
     }),
   );
 }
@@ -286,9 +252,14 @@ function renderProjectTable() {
   }
 
   let projects = [...periodData.projects];
+
   tableProject.textContent = "";
 
   periodData.projects.forEach((el) => {
+    const assignedCount = periodData.employees.filter((emp) =>
+      emp.assignments.some((asgn) => asgn.projectId === el.id),
+    ).length;
+
     const row = document.createElement("tr");
     const revenueClass = el.expectedRevenue < 0 ? "text-red" : "text-green";
 
@@ -297,15 +268,68 @@ function renderProjectTable() {
       `
         <td>${el.company}</td>
         <td>${el.name}</td>
-        <td>${el.budget}</td>
-        <td>${el.totalCapacity}</td>
-        <td><button class="project__table--showEmployees">Show Emploees</button></td>
-        <td class="${revenueClass}">${el.expectedRevenue.toLocaleString()}</td>
-        <td><button class="project__table--delete">Delete</button></td>`,
+        <td>${el.budget.toLocaleString()}</td>
+        <td>${assignedCount} / ${el.employeeCapacity}</td>
+        <td><button class="project__table--showEmployees data-id="${el.id}">Show Emploees</button></td>
+        <td>-</td>
+        <td><button class="project__table--delete data-id="${el.id}">Delete</button></td>`,
     );
     tableProject.append(row);
   });
 }
 
+// EMPLOYEE
+
+function calculateAge(birthDate) {
+  const today = new Date();
+  const birth = new Date(birthDate);
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  return age;
+}
+
+function renderEmployeesTable() {
+  const data = Storage.getPeriodData(currentPeriod);
+  const tableBody = document.querySelector(".employee__table-body");
+
+  if (!tableBody) return;
+
+  tableBody.innerHTML = "";
+
+  if (!data.employees || data.employees.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="8">В этом периоде сотрудников пока нет</td></tr>`;
+    return;
+  }
+
+  data.employees.forEach((emp) => {
+    const currentUsage = emp.assignments.reduce(
+      (sum, asgn) => sum + asgn.capacity,
+      0,
+    );
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+            <td>${emp.firstName}</td>
+            <td>${emp.lastName}</td>
+            <td>${emp.birthDate ? calculateAge(emp.birthDate) : "—"}</td>
+            <td>${emp.role}</td>
+            <td>${emp.salary.toFixed(2)}</td>
+            <td>Estimated Payment</td>
+            <td>
+              <button class="emp-assign-btn">Show Assignments(${currentUsage})</button>
+            </td>
+            <td>projectIncome</td>
+            <td>
+              <div class="emp__btns">
+                <button class="emp__btn--availability">Availability</button>
+                <button class="emp__btn--assign">Assign</button>
+                <button class="emp__btn--delete">Delete</button>
+              </div>
+            </td>
+        `;
+    tableBody.append(row);
+  });
+}
+
 initPeriod();
-renderProjectTable();

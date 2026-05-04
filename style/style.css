@@ -133,19 +133,22 @@ img {
 .main {
   flex-grow: 1;
 }
-.project {
+.project, 
+.employee {
   width: 100%;
   padding: 30px;
 }
 
-.project__header {
+.project__header,
+.employee__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
 }
 
-.project__header-title {
+.project__header-title,
+.employee__header-title {
   margin: 0;
   font-size: 36px;
   font-weight: 700;
@@ -159,7 +162,8 @@ img {
   column-gap: 10px;
 }
 
-.projects__btn {
+.projects__btn,
+.employee__btn {
   padding: 10px;
   font-size: 20px;
   font-weight: 600;
@@ -171,18 +175,21 @@ img {
   cursor: pointer;
 }
 
-.project__table {
+.project__table,
+.employee__table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.project__table th {
+.project__table th,
+.employee__table th {
   padding: 5px;
   border: 1px solid grey;
   text-align: center;
 }
 
-.project__table > td {
+.project__table > td,
+.employee__table > td {
   padding: 5px;
   border: 1px solid grey;
   text-align: center;
@@ -328,3 +335,5 @@ td {
 .text-green {
     color: green;
 }
+
+/* EMPLOYEE */
